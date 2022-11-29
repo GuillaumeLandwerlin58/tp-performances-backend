@@ -141,7 +141,9 @@ class UnoptimizedHotelService extends AbstractHotelService {
     $timer = Timers::getInstance();
     $timerId = $timer->startTimer('getCheapestRoom');
     // On charge toutes les chambres de l'hôtel
-    $stmt = $this->getDB()->prepare( "SELECT * FROM wp_posts WHERE post_author = :hotelId AND post_type = 'room'" );
+    $query = "";
+    $whereClauses = [];
+    $stmt = $this->getDB()->prepare( $query );
     $stmt->execute( [ 'hotelId' => $hotel->getId() ] );
     
     /**

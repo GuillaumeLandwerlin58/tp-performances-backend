@@ -64,12 +64,12 @@ SELECT AVG(meta_value), COUNT(meta_value) FROM wp_posts, wp_postmeta WHERE wp_po
 
 
 
-#### Amélioration de la méthode `METHOD` :
+#### Amélioration de la méthode `getCheapestRoom` :
 
-- **Avant** TEMPS
+- **Avant** 15.15 s
 
 ```sql
--- REQ SQL DE BASE
+SELECT * FROM wp_posts WHERE post_author = :hotelId AND post_type = 'room'
 ```
 
 - **Après** TEMPS
