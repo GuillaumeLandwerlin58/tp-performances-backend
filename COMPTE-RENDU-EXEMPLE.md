@@ -2,15 +2,15 @@ Vous pouvez utiliser ce [GSheets](https://docs.google.com/spreadsheets/d/13Hw27U
 
 ## Question 2 : Utilisation Server Timing API
 
-**Temps de chargement initial de la page** : TEMPS
+**Temps de chargement initial de la page** : 31.6 s
 
 **Choix des méthodes à analyser** :
 
-- `METHOD_1` TEMPS
-- `METHOD_2` TEMPS
-- `METHOD_3` TEMPS
+- `getCheapestRoom` 17.33 s
+- `getMetas` 4.34 s
+- `getReviews` 9.08 s
 
-
+**![img.png](img.png)**
 
 ## Question 3 : Réduction du nombre de connexions PDO
 
