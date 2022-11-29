@@ -27,12 +27,12 @@ Vous pouvez utiliser ce [GSheets](https://docs.google.com/spreadsheets/d/13Hw27U
 
 **Temps de chargement globaux** 
 
-- **Avant** TEMPS
+- **Avant** 32.2 -> 33%
 
 - **Après** TEMPS
 
 
-#### Amélioration de la méthode `METHOD` et donc de la méthode `METHOD` :
+#### Amélioration de la méthode `getMeta` et donc de la méthode `METHOD` :
 
 - **Avant** TEMPS
 
@@ -40,17 +40,17 @@ Vous pouvez utiliser ce [GSheets](https://docs.google.com/spreadsheets/d/13Hw27U
 -- REQ SQL DE BASE
 ```
 
-- **Après** TEMPS
+- **Après** 1.61 s
 
 ```sql
--- NOUVELLE REQ SQL
+SELECT * FROM wp_usermeta WHERE user_id = :userId AND meta_key = :meta_key;
 ```
 
 
 
-#### Amélioration de la méthode `METHOD` :
+#### Amélioration de la méthode `getReviews` :
 
-- **Avant** TEMPS
+- **Avant** 8.79 s
 
 ```sql
 -- REQ SQL DE BASE
