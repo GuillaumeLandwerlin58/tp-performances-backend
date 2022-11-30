@@ -86,7 +86,7 @@ WHERE post_author = :hotelId AND post_type = 'room'" . (!empty($whereClause) ? '
 
 
 
-## Question 5 : Réduction du nombre de requêtes SQL pour `METHOD`
+## Question 5 : Réduction du nombre de requêtes SQL pour `getMetas`
 
 |                              | **Avant** | **Après** |
 |------------------------------|-----------|-----------|
