@@ -27,9 +27,9 @@ Vous pouvez utiliser ce [GSheets](https://docs.google.com/spreadsheets/d/13Hw27U
 
 **Temps de chargement globaux** 
 
-- **Avant** 32.2 -> 33%
+- **Avant** 32.2 s
 
-- **Après** TEMPS
+- **Après** 21.9 s
 
 
 #### Amélioration de la méthode `getMeta` et donc de la méthode `getMetas` :
@@ -72,10 +72,16 @@ SELECT AVG(meta_value), COUNT(meta_value) FROM wp_posts, wp_postmeta WHERE wp_po
 SELECT * FROM wp_posts WHERE post_author = :hotelId AND post_type = 'room'
 ```
 
-- **Après** TEMPS
+- **Après** 12.29 s
 
 ```sql
--- NOUVELLE REQ SQL
+SELECT * FROM wp_posts
+               INNER JOIN wp_postmeta as surfaceData ON surfaceData.post_id = wp_posts.ID AND surfaceData.meta_key = 'surface'
+               INNER JOIN wp_postmeta as priceData ON priceData.post_id = wp_posts.ID AND priceData.meta_key = 'price'
+               INNER JOIN wp_postmeta as roomsData ON roomsData.post_id = wp_posts.ID AND roomsData.meta_key = 'bedrooms_count'
+               INNER JOIN wp_postmeta as bathRoomsData ON bathRoomsData.post_id = wp_posts.ID AND bathRoomsData.meta_key = 'bathrooms_count'
+               INNER JOIN wp_postmeta as typeData ON typeData.post_id = wp_posts.ID AND typeData.meta_key = 'type'
+WHERE post_author = :hotelId AND post_type = 'room'" . (!empty($whereClause) ? ' AND ' . implode(' AND ', $whereClause) : '') . " ORDER BY priceData.meta_value ASC LIMIT 1");
 ```
 
 
