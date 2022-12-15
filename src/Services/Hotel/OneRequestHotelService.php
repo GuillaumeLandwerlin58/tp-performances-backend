@@ -8,7 +8,7 @@ use App\Entities\HotelEntity;
 use App\Entities\RoomEntity;
 use App\Services\Room\RoomService;
 use App\Common\Timers;
-use App\Common\PDOSingleton;
+use App\Common\SingletonPDO;
 use Exception;
 use PDO;
 
@@ -26,7 +26,7 @@ class OneRequestHotelService extends AbstractHotelService {
   protected function getDB () : PDO {
     $timer = Timers::getInstance();
     $timerId = $timer->startTimer('getDB');
-    $pdo = PDOSingleton::get();
+    $pdo = SingletonPDO::get();
     $timer->endTimer('getDB', $timerId);
     return $pdo;
   }
@@ -151,7 +151,6 @@ class OneRequestHotelService extends AbstractHotelService {
         $sqlQuery .="
         ORDER BY `cheapestRoomId` ASC";
         $stmt = $db->prepare($sqlQuery);
-        dump($sqlQuery);
     if(empty($args["distance"])){
       $stmt->execute();
     }
