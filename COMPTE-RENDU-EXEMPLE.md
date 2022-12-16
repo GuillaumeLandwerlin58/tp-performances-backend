@@ -155,9 +155,7 @@ SELECT
             post.post_type = 'room'
             GROUP BY
             post.ID
-        ) AS postData ON user.ID = postData.post_author WHERE  type IN ("Appartement")
-        GROUP BY user.ID
-        ORDER BY `cheapestRoomId` ASC
+        ) AS postData ON user.ID = postData.post_author;
 ```
 
 ## Question 7 : ajout d'indexes SQL
