@@ -89,6 +89,7 @@ class OneRequestHotelService extends AbstractHotelService {
         INNER JOIN wp_usermeta as phoneData           ON phoneData.user_id           = USER.ID     AND phoneData.meta_key           = 'phone'
         INNER JOIN wp_posts    as rating_postData     ON rating_postData.post_author = USER.ID     AND rating_postData.post_type    = 'review'
         INNER JOIN wp_postmeta as reviewData          ON reviewData.post_id = rating_postData.ID   AND reviewData.meta_key          = 'rating'
+
         INNER JOIN (SELECT
             post.ID,
             post.post_author,
@@ -109,6 +110,7 @@ class OneRequestHotelService extends AbstractHotelService {
             GROUP BY
             post.ID
         ) AS postData ON user.ID = postData.post_author";
+
         $whereClauses = [];
         if (isset ($args['surface']['min'])){
             $whereClauses[] = " surface >= ". $args['surface']['min'];
@@ -131,6 +133,7 @@ class OneRequestHotelService extends AbstractHotelService {
         if (isset ($args['types']) && count($args['types']) > 0){
             $whereClauses[] =  ' type IN ("'.implode('","',$args['types']).'")';
         }
+
         if (!empty($whereClauses)) {
           $arg = 0;
           $sqlQuery .= " WHERE ";
@@ -145,20 +148,25 @@ class OneRequestHotelService extends AbstractHotelService {
         }
         $sqlQuery .= "
         GROUP BY user.ID";
+
         if(!empty($args["distance"])){
           $sqlQuery .= " \n HAVING distanceKM <= :distance";
         }
+
         $sqlQuery .="
         ORDER BY `cheapestRoomId` ASC";
         $stmt = $db->prepare($sqlQuery);
+
     if(empty($args["distance"])){
       $stmt->execute();
     }
     else{
       $stmt->execute([ 'lat' => $args["lat"],'lng' => $args["lng"],'distance' => $args["distance"]]);
     }
+
     $results = $stmt->fetchAll( PDO::FETCH_ASSOC );
     $hotels = [];
+
     foreach($results as $result){
       $address = [
         'address_1' => $result['hotel_address_1'],
