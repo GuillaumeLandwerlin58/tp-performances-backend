@@ -158,28 +158,28 @@ SELECT
         ) AS postData ON user.ID = postData.post_author WHERE  type IN ("Appartement")
         GROUP BY user.ID
         ORDER BY `cheapestRoomId` ASC
--- GIGA REQUÊTE
--- INDENTATION PROPRE ET COMMENTAIRES SERONT APPRÉCIÉS MERCI !
 ```
 
 ## Question 7 : ajout d'indexes SQL
 
 **Indexes ajoutés**
 
-- `TABLE` : `COLONNES`
-- `TABLE` : `COLONNES`
-- `TABLE` : `COLONNES`
+- `wp_usermeta` : `user_id`
+- `wp_posts` : `post_author`
+- `wp_postmeta` : `post_id`
 
 **Requête SQL d'ajout des indexes** 
 
 ```sql
--- REQ SQL CREATION INDEXES
+ALTER TABLE `wp_usermeta` ADD INDEX(`user_id`);
+ALTER TABLE `wp_posts` ADD INDEX(`post_author`);
+ALTER TABLE `wp_postmeta` ADD INDEX(`post_id`);
 ```
 
 | Temps de chargement de la page | Sans filtre | Avec filtres |
 |--------------------------------|-------------|--------------|
-| `UnoptimizedService`           | TEMPS       | TEMPS        |
-| `OneRequestService`            | TEMPS       | TEMPS        |
+| `UnoptimizedService`           | 2.34        | 1.14         |
+| `OneRequestService`            | 2.32        | 0.93         |
 [Filtres à utiliser pour mesurer le temps de chargement](http://localhost/?types%5B%5D=Maison&types%5B%5D=Appartement&price%5Bmin%5D=200&price%5Bmax%5D=230&surface%5Bmin%5D=130&surface%5Bmax%5D=150&rooms=5&bathRooms=5&lat=46.988708&lng=3.160778&search=Nevers&distance=30)
 
 
@@ -191,7 +191,7 @@ SELECT
 
 | Temps de chargement de la page | Sans filtre | Avec filtres |
 |--------------------------------|-------------|--------------|
-| `OneRequestService`            | TEMPS       | TEMPS        |
+| `OneRequestService`            | 1.71        | 0.71         |
 | `ReworkedHotelService`         | TEMPS       | TEMPS        |
 
 [Filtres à utiliser pour mesurer le temps de chargement](http://localhost/?types%5B%5D=Maison&types%5B%5D=Appartement&price%5Bmin%5D=200&price%5Bmax%5D=230&surface%5Bmin%5D=130&surface%5Bmax%5D=150&rooms=5&bathRooms=5&lat=46.988708&lng=3.160778&search=Nevers&distance=30)
